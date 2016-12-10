@@ -1,9 +1,4 @@
 var _dlya = class Datalegreyanimate {
-  /* INITIALIZE FONT STYLE
-   * "datalegreya" class sets the font
-   */
-  constructor() {
-  }
   static init(){
     var initStyle = document.createElement('style');
     initStyle.appendChild(document.createTextNode('@font-face {font-family: FigsFaceThin;src: url("datalegreyanimate/font-files/Datalegreya-Thin.otf") format("opentype");}'+
@@ -22,8 +17,6 @@ var _dlya = class Datalegreyanimate {
                                                   '.datalegreya.dot{font-family:\'FigsFaceDot\'}'
                                                  ));
     document.head.appendChild(initStyle);
-
-
   }
 
   static step(){
@@ -39,4 +32,44 @@ var _dlya = class Datalegreyanimate {
       document.getElementsByClassName('datalegreya')[i].innerHTML = r;
     }
   }
+}
+
+class DAElement{
+  constructor(element, string, csv) {
+     this.element = element;
+     this.string = string;
+     this.values = interpolateArray(csv.split(',').map(Number),this.string.length);
+     for(var i=0;i<this.values.length;i++){
+       this.values[i]=Math.round(mapRange(
+                                          this.values[i],
+                                          Math.min(...this.values),
+                                          Math.max(...this.values),
+                                          0,
+                                          3
+                                        ));
+     }
+   }
+}
+
+
+// Utility functions
+function interpolateArray(data,tLen) {
+    var linearInterpolate = function(b,a,p){
+      return b+(a-b)*p;
+    };
+    var r=new Array();
+    var f=new Number((data.length-1)/(tLen-1));
+    r[0]=data[0];
+    for(var i=1;i<tLen-1;i++) {
+        var tmp=i*f;
+        var b=new Number(Math.floor(tmp)).toFixed();
+        var a=new Number(Math.ceil(tmp)).toFixed();
+        var p=tmp-b;
+        r[i]=linearInterpolate(data[b],data[a],p);
+    }
+    r[tLen-1]=data[data.length-1];
+    return r;
+}
+function mapRange(v,iL,iH,tL,tH) {
+    return tL+(tH-tL)*(v-iL)/(iH-iL);
 }
