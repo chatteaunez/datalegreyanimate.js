@@ -1,7 +1,19 @@
 body {
-	background-color: #3c3c3a;
+	background-color: #EEE;
 	color: #AAA;
 	font-size: 16px;
 }
 
-.datalegreya{font-size:200px;}
+body>p{text-align: left;}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	body>p{
+		 background-image: url("content/grad.jpg")!important;
+	   background-size:100% 100%;
+	   background-position: left bottom;
+	 	-webkit-background-clip: text!important;
+	 	-webkit-text-fill-color: transparent!important;
+   }
+}
+
+.dlya{font-size:200px;white-space:nowrap;line-height: 120px}
