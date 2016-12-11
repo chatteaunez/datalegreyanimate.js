@@ -17,11 +17,15 @@ var _dlya = class Datalegreyanimate {
                                                   '.datalegreya.dot{font-family:\'FigsFaceDot\'}'
                                                  ));
     document.head.appendChild(initStyle);
+
+    for (var i = 0; i < document.getElementsByClassName('datalegreya').length; i++) {
+      this.create(document.getElementsByClassName('datalegreya')[i]);
+    }
   }
 
   static step(){
-    for (var i=0;i<document.getElementsByClassName('datalegreya').length;i++) {
-      var code = document.getElementsByClassName('datalegreya')[i].textContent;
+    for (var i=0;i<document.getElementsByClassName('marquee').length;i++) {
+      var code = document.getElementsByClassName('marquee')[i].textContent;
       var r = '§';
       code=code.substring(1);
       var values = code.split('|');
@@ -32,13 +36,17 @@ var _dlya = class Datalegreyanimate {
       document.getElementsByClassName('datalegreya')[i].innerHTML = r;
     }
   }
+  static create(element){
+    if(this.instances==null)this.instances=[];
+    this.instances[this.instances.length] = new DAElement(element,element.textContent,element.dataset.values);
+  }
 }
 
 class DAElement{
   constructor(element, string, csv) {
      this.element = element;
      this.string = string;
-     this.values = interpolateArray(csv.split(',').map(Number),this.string.length);
+     this.values = interpolateArray(csv.split(',').map(Number),this.string.length+1);
      for(var i=0;i<this.values.length;i++){
        this.values[i]=Math.round(mapRange(
                                           this.values[i],
@@ -48,6 +56,17 @@ class DAElement{
                                           3
                                         ));
      }
+   }
+
+   render(){
+     var code='§'+this.values[0];
+     for (var i = 0; i < this.string.length; i++) {
+       code+=this.string[i];
+       if(i!=this.string.length)code+='|';
+       code+=this.values[i+1];
+
+     }
+     this.element.innerHTML=code;
    }
 }
 
