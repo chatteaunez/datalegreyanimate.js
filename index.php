@@ -10,9 +10,9 @@
 
   <body>
       <p>
-        <span class="dlya" data-values="1,1,1,1,1,3,0,1,1,1" data-animation="marquee">hello world</span><br />
-        <span class="dlya gradient" data-values="3,0,2,1,5,4" data-animation="marquee">fuck this</span>
-        <span class="dlya dot" data-values="0,5" data-animation="marqueetext">hello                </span>
+        <span class="dlya" data-values="1,1,1,1,1,3,0,1,1,2" data-animation="marquee,right">hello world</span><br />
+        <span class="dlya gradient" data-values="3,0,2,1,5,4" data-animation="marquee,left">fuck this</span>
+        <span class="dlya dot" data-values="0,5" data-animation="marqueetext,right">hello        </span>
       </p>
     <script type="text/javascript" src="script.js"></script>
   </body>

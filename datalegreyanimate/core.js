@@ -61,6 +61,7 @@ class DAElement{
      this.element = element;
      this.animation = element.dataset.animation;
      this.text = string;
+     this.originalValues = csv.split(',');
      this.values = interpolateArray(csv.split(',').map(Number),this.text.length+1);
      for(var i=0;i<this.values.length;i++){
        this.values[i]=Math.round(mapRange(
@@ -75,8 +76,8 @@ class DAElement{
 
    // cette methode appelle la fonction d'animation spécifiée
    step() {
-    var args = [];
-    var namespaces = this.animation.split(".");
+    var args = this.animation.split(",");
+    var namespaces = args.splice(0,1)[0].split(".");
     var func = namespaces.pop();
     for(var i = 0; i < namespaces.length; i++) {
       window = window[namespaces[i]];
@@ -104,7 +105,7 @@ class DAElement{
 
 // UTILITIES
 
-// interpoler l'array de valeur au nombre de caractère
+// interpoler l'array de valeur
 function interpolateArray(data,tLen) {
     var linearInterpolate = function(b,a,p){
       return b+(a-b)*p;
